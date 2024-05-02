@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
-; A 64-bit Linux application that writes the first 90 Fibonacci numbers. To
-; assemble and run:
+; A 64-bit Linux application that calculates the sum of the squares of the n first numbers.
+; To assemble and run:
 ;
 ;     nasm -g -felf64 squareSum.asm && gcc -g -no-pie -o squareSum squareSum.o -lc && ./squareSum
 ; -----------------------------------------------------------------------------
