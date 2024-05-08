@@ -33,7 +33,11 @@ selectSort:
         mov     rbp, rsp        ; save the base pointer
         push    rbx             ; save the base register
 
-        push    r12             ; save the registers
+        push    r8              ; save the registers
+        push    r9
+        push    r10
+        push    r11
+        push    r12             
         push    r13
 
         mov     r12, rdi        ; rdi is the address of the array
@@ -87,6 +91,10 @@ selectSort:
 .done:
         pop     r13             ; restore the registers
         pop     r12
+        pop     r11
+        pop     r10
+        pop     r9
+        pop     r8
 
         pop     rbx             ; restore the base register
         pop     rbp             ; restore the base pointer
