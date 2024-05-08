@@ -16,12 +16,6 @@ sum     dq      0
 section .text
 
 print:
-        ; We need to call printf, but we are using rax, rbx, and rcx.  printf
-        ; may destroy rax and rcx so we will save these before the call and
-        ; restore them afterwards.
-
-        push    rax                     ; caller-save register
-        push    rcx                     ; caller-save register
         push    rdi                     ; caller-save register
         push    rsi                     ; caller-save register
 
@@ -34,8 +28,6 @@ print:
 
         pop     rsi                     ; restore caller-save register
         pop     rdi                     ; restore caller-save register
-        pop     rcx                     ; restore caller-save register
-        pop     rax                     ; restore caller-save register
 
         ret                             ; return to caller
         
