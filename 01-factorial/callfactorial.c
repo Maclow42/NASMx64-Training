@@ -1,7 +1,3 @@
-/*
- * An application that illustrates calling the factorial function defined elsewhere.
- */
-
 #include <stdio.h>
 #include <inttypes.h>
 
