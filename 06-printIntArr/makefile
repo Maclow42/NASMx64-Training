@@ -13,4 +13,4 @@ main: main.o printIntArr.o ./include/printInt.o
 	gcc -g -no-pie -o main main.o printIntArr.o ./include/printInt.o -lc
 
 clean:
-	rm -f main main.o ./include/printInt.o
+	rm -f main main.o printIntArr.o ./include/printInt.o

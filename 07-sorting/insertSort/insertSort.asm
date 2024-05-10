@@ -3,7 +3,7 @@
 ; 
 ; The C code for the algorithm is:
 ;
-; void insertionSort(int arr[], int n) {
+; void insertSort(int arr[], int n) {
 ;     int i, j, key;
 ;     for (i = 1; i < n; i++) {
 ;         key = arr[i];
@@ -15,16 +15,14 @@
 ;         arr[j + 1] = key;
 ;     }
 ; }
-;
-; Compile and run with:
-; nasm -g -felf64 insertSort.asm && gcc -g -no-pie -o insertSort insertSort.o callInsertSort.c -lc && ./insertSort
-;
 ; ----------------------------------------------------------------------------
+        
+        global insertSort
 
         section .text
     
 
-; void insertionSort(int arr[], int n)
+; void insertSort(int arr[], int n)
 ; rdi = arr address
 ; rsi = n
 insertSort:

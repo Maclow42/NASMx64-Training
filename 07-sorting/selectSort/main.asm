@@ -7,7 +7,7 @@
 
 extern print
 extern printIntArr
-extern insertSort
+extern selectSort
 
 section .data
     newline db 10
@@ -50,7 +50,7 @@ main:
     ; Sort it
     mov rdi, arr1
     mov rsi, arr1.len
-    call insertSort
+    call selectSort
 
     ; Write the "after sorting" text to stdout
     mov rdi, afterText

@@ -17,10 +17,6 @@
 ;         }
 ;     }
 ; }
-;
-; Compile and run with:
-; nasm -g -felf64 selectSort.asm && gcc -g -no-pie -o selectSort selectSort.o callSelectSort.c -lc && ./selectSort
-;
 ; ----------------------------------------------------------------------------
 
         global  selectSort
