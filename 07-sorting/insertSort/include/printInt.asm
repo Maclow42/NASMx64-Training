@@ -4,25 +4,19 @@ section .data
 
     ; int 0x80 information
     sys_exit equ 1
-    sys_write equ 1
+    sys_write equ 4
 
     ; Streams
     stdout equ 1
 
     ; Constants
-    BUFFER_SIZE equ 20
-    
+    BUFFER_SIZE equ 10
 
 section .bss
 
     numbuf resb BUFFER_SIZE	    ; A buffer to store our string of numbers in
 
-
 section .text
-
-global print
-global printInt
-global itoa
 
 ; print a string to stdout
 ; rdi = string pointer
@@ -30,40 +24,35 @@ global itoa
 ; returns nothing
 print:
     push rax
-    push rsi
+    push rbx
     push rcx
     push rdx
     
-    mov rax, sys_write      ; Numéro de syscall pour sys_write sur x86_64
-    mov rdx, rsi            ; Longueur du buffer (dans rsi)
-    mov rsi, rdi            ; Adresse du buffer (dans rdi)
-    mov rdi, stdout         ; Descripteur de fichier pour stdout
+    mov rax,sys_write
+    mov rbx,stdout
+    mov rcx,rdi
+    mov rdx,rsi
 
-    syscall
+    int 0x80
 
     pop rdx
     pop rcx
-    pop rsi
+    pop rbx
     pop rax
 
     ret
-
 
 ; print a string to stdout
 ; rdi = int to print
 ; returns nothing
 printInt:
-    push rax
-    push rcx
-
     call itoa               ; result in rax, length in rcx
 
     mov rdi,rax             ; pointer to the string
     mov rsi,rcx             ; length of the string
     call print              ; print the string
 
-    pop rcx
-    pop rax
+    int 0x80
 
     ret
 
@@ -75,9 +64,6 @@ itoa:
     push rbp		
     mov rbp,rsp
     sub rsp,4               ; allocate 4 bytes for our local string length counter
-
-    push rdi
-    push rdx
 
     mov rax,rdi	            ; Move the passed in argument to rax
     lea rdi,[numbuf+10]     ; load the end address of the buffer (past the very end)
@@ -98,8 +84,5 @@ itoa:
     mov rax,rdi		        ; rdi now points to the beginning of the string - move it into rax
     mov rcx,[rbp-4]	        ; rbp-4 contains the length - move it into rcx
 
-    pop rdx
-    pop rdi
-
-    leave
+    leave		            ; clean up our stack
     ret

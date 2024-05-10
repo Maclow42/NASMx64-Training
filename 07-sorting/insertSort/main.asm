@@ -1,17 +1,14 @@
 ; -----------------------------------------------------------------------------
-; A 64-bit Linux application that prints an integer array to stdout
+; A 64-bit Linux application that sort an integer array ussing insertion sort
 ; To assemble and run:
 ;
 ; nasm -g -felf64 main.asm && gcc -g -no-pie -o main main.o -lc && ./main
 ; -----------------------------------------------------------------------------
 
-extern print
-extern printIntArr
+%include "../../06-printIntArr/printIntArr.asm"
+%include "./insertSort.asm"
 
 section .data
-    newline db 10
-    sys_exit equ 60
-
     arr1 dd 42, 11, 23, 13
     arr1.len equ 4
 
@@ -39,11 +36,12 @@ main:
     call printIntArr
 
     ; Write the newline character to stdout
-    mov rdi, newline
+    mov rdi,newline
     mov rsi,1
     call print
-
+    
    ; Exit
     mov rax,sys_exit
-    xor rdi, rdi  ; Paramètre status (ici, 0 pour indiquer une terminaison normale)
-    syscall
+    mov rbx,0
+
+    int 0x80

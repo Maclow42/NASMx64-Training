@@ -2,20 +2,23 @@
 ; A 64-bit Linux application that prints an integer to stdout
 ; To assemble and run:
 ;
-; nasm -g -felf64 main.asm && gcc -g -no-pie -o main main.o -lc && ./main
+; nasm -g -felf64 main.asm && gcc -g -no-pie -o main main.o printInt.o -lc && ./main
 ; -----------------------------------------------------------------------------
 
-%include "./printInt.asm"
-
-section .data
+    section .data
     number dd 42	    ; The number to print
+    newline db 10       ; The newline character
+    sys_exit equ 60     ; The system call number for exit
 
-section .text
+
+    section .text
+extern print
+extern printInt
 
 global main
 
 main:
-    mov rdi,[number]            ; Move the number into rax
+    mov edi, DWORD [number]            ; Move the number into rax
     call printInt               ; Print the number
 
     ; Write the newline character to stdout
@@ -23,8 +26,8 @@ main:
     mov rsi,1
     call print
     
-   ; Exit
+    ; Exit
     mov rax,sys_exit
-    mov rbx,0
+    xor rdi, rdi  ; Paramètre status (ici, 0 pour indiquer une terminaison normale)
+    syscall
 
-    int 0x80

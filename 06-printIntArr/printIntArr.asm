@@ -1,4 +1,5 @@
-%include "../05-printInt/printInt.asm"
+extern printInt
+extern print
 
 	section .data
 comma		db 		", ", 0
@@ -27,7 +28,7 @@ printIntArr:
 	mov	r8, rdi		; r8 = arr address
 	mov r9, rsi		; r9 = len
 
-	mov r10, 0		; r10 = i
+	mov r10, 0		; i = 0
 
 	.loop:
 		; for(int i = 0; i < len; i++)

@@ -21,74 +21,12 @@
 ;
 ; ----------------------------------------------------------------------------
 
-        global  main
-        extern printf
-        extern putchar
-
-        section .data
-list    dd      5, 2, 4, 6, 1, 3
-size    dd      6
-
-    int_format db "%d", 0    ; Format de sortie pour un entier
-    newline db 10             ; Caractère de nouvelle ligne
-
         section .text
-
-
-; int main() {
-;     int arr[] = {5, 2, 4, 6, 1, 3};
-;     int n = sizeof(arr) / sizeof(arr[0]);
-;     insertionSort(arr, n);
-;     return 0;
-; }
-
-main:
-        push    rbp
-        mov     rbp, rsp
-        push    rbx
-
-        mov     rdi, 1  ; Passer l'adresse du tableau
-        call    printInt
-        
-        ;call    insertSort
-
-        mov     eax, 0
-
-        pop     rbx
-        pop     rbp
-        
-        ret
-        
-printInt:
-    push rbp
-    mov rbp, rsp
-
-    ; Sauvegarder les registres utilisés
-    push rbx
-    push rdi
-    push rsi
-    push rdx
-
-    ; Mettre l'entier dans le format de chaîne de caractères
-    mov rsi, rdi           ; Second argument: l'entier en paramètre
-    mov rdi, int_format    ; Premier argument: format de chaîne pour printf
-    xor rax, rax
-    call printf            ; Appeler printf pour imprimer l'entier
-
-    ; Imprimer un saut de ligne
-    mov rdi, newline       ; Premier argument: caractère de nouvelle ligne
-    call putchar           ; Appeler putchar pour imprimer le saut de ligne
-
-    ; Restaurer les registres et retourner
-    pop rdx
-    pop rsi
-    pop rdi
-    pop rbx
-    leave
-    ret
+    
 
 ; void insertionSort(int arr[], int n)
-; arr is in rdi, n is in rsi
+; rdi = arr address
+; rsi = n
 insertSort:
 .prologue:
         push    rbp
